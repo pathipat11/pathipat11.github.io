@@ -23,7 +23,10 @@ body{
                 3px 3px 5px #ceced1;
 }
 .image{
-    
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    border-radius: 10px;
 }
 .information{
     font-size: 19px;
@@ -68,4 +71,5 @@ table{
     flex-direction: column;
     gap: 5px;
     align-self: flex-start;
+    margin-top: auto;
 }
