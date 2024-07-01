@@ -55,6 +55,13 @@ body{
 .about{
     margin-top: 5px;
 }
+.about ul{
+    list-style: none;
+    padding: 0;
+}
+.about strong{
+    font-weight: 550;
+}
 .exp{
     margin-top: 10px;
     font-size: 19px;
