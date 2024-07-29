@@ -1,0 +1,205 @@
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: ghostwhite;
+    margin: 0;
+    padding: 0;
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: darkred;
+    z-index: 1000;
+}
+header h1 {
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-size: 3.5vmin;
+}
+header h1 a {
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+.container {
+    margin-top: calc(3.5vmin + 40px);
+}
+.main-details {
+    margin-top: -20px;
+    display: flex;
+    justify-content: center;
+}
+.card {
+    transition: transform 0.3s ease-in-out;
+    border-radius: 15px;
+    position: relative;
+}
+/* im not sure if this is required */
+@media (max-width: 767px) {
+    .card {
+        transform: scale(0.9);
+    }
+}
+@media (max-width: 991px) {
+    .card {
+        transform: scale(0.95);
+    }
+}
+/* --- */
+.card:hover {
+    transform: scale(1.05);
+    background-color: rgb(214, 214, 214);
+}
+.card-id {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    padding: 2px 5px;
+    font-size: 12px;
+}
+.card-img-top {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.card-body {
+    text-align: center;
+    font-size: 19px;
+    font-weight: bold;
+}
+.card-name {
+    margin-top: 5px;
+}
+#pokemon-details {
+    border: 2px solid white;
+    border-radius: 15px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+    /* margin: 80px auto; */
+}
+
+#pokemon-details img {
+    /* border: 2px solid #ddd; */
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+}
+
+.details-container {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    text-align: center;
+}
+.details-container p {
+    flex-basis: 100%;
+    text-align: center;
+    margin: 0;
+}
+.hei, .wei, .abilities {
+    padding: 10px;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    margin: 5px;
+    flex: 1 1 30%;
+}
+
+.abilities {
+    margin-top: 10px;
+}
+
+.pokemon-image {
+    max-width: 150px;
+    height: auto;
+}
+
+.stats-container {
+    margin-top: 20px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.stat-label {
+    width: 150px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.stat-bar-container {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.stat-bar {
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 20px;
+    position: relative;
+}
+
+.stat-bar div {
+    height: 100%;
+    text-align: center;
+    color: white;
+    line-height: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.hp { background-color: #ff0000; }
+.attack { background-color: #ff9f00; }
+.defense { background-color: #009f00; }
+.special-attack { background-color: #003fff; }
+.special-defense { background-color: #8a2be2; }
+.speed { background-color: #ff00ff; }
+
+@media (max-width: 767px) {
+    .pokemon-image {
+        max-width: 100px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .pokemon-image {
+        max-width: 125px;
+    }
+}
+.back-button {
+    position: fixed;
+    top: 0;
+    left: 15px;
+    z-index: 1000;
+    font-size: 3.5vmin;
+    color: white;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.id-tag {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}

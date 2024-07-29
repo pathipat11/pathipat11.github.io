@@ -1,36 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bootstrap demo</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <style>
-        .card{
-            margin-bottom: 1rem;
-        }
-    </style>
-  </head>
-  <body>
+    <title>Pokémon Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../pokemon_css/details.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" class='text-decoration-none'>Pokedex Lab</a></h1>
+    </header>
     <div class="container">
-        <h1>Pokedex Lab</h1>
-        <div id="name"></div>
+        <button onclick="goBack()" class="btn back-button">
+            &lt;
+        </button>
+        <div class="main-details">
+            <div id="pokemon-details" class="row mt-5"></div>
+        </div>
     </div>
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const name = urlParams.get("name");
-        const id = urlParams.get("id");
-        document.getElementById("name").innerText = name;
+        const typeColors = {
+          normal: "#A8A878",
+          fire: "#F08030",
+          water: "#6890F0",
+          electric: "#F8D030",
+          grass: "#78C850",
+          ice: "#98D8D8",
+          fighting: "#C03028",
+          poison: "#A040A0",
+          ground: "#E0C068",
+          flying: "#A890F0",
+          psychic: "#F85888",
+          bug: "#A8B820",
+          rock: "#B8A038",
+          ghost: "#705898",
+          dragon: "#7038F8",
+          dark: "#705848",
+          steel: "#B8B8D0",
+          fairy: "#EE99AC",
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const pokemonId = params.get('id');
+
+        if (pokemonId) {
+            fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+                .then(res => res.json())
+                .then(data => {
+                    const { id, name, height, weight, types, stats, abilities, sprites } = data;
+
+                    let typesHtml = types.map(typeInfo => `<a href="type.html?name=${typeInfo.type.name}" class="badge text-decoration-none" style="background-color: ${typeColors[typeInfo.type.name]};">${typeInfo.type.name}</a>`).join(' ');
+                    let abilitiesHtml = abilities.map(abilityInfo => `<a href="ability.html?name=${abilityInfo.ability.name}" class="badge bg-primary text-decoration-none">${abilityInfo.ability.name}</a>`).join(' ');
+                    const mainType = types[0].type.name;
+                    const color = typeColors[mainType];
+                    document.body.style.backgroundColor = color;
+
+                    const statsHtml = stats.map(statInfo => {
+                        const statName = statInfo.stat.name.replace("-", " ");
+                        const statValue = statInfo.base_stat;
+                        const statPercentage = Math.min(statValue / 200 * 100, 100);
+                        return `
+                            <div class="stat-item">
+                                <div class="stat-label">${statName.charAt(0).toUpperCase() + statName.slice(1)}:</div>
+                                <div class="stat-bar-container">
+                                    <div class="stat-bar ${statName.toLowerCase().replace(/ /g, "-")}" style="width: ${statPercentage}%;">
+                                        ${statValue}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    const pokemonDetailsHtml = `
+                        <div class="col-12 text-center position-relative">
+                            <img src="${sprites.other['official-artwork'].front_default}" alt="${name}" class="img-fluid mb-3 pokemon-image" style="max-width: 200px;">
+                            <h2>${name.charAt(0).toUpperCase() + name.slice(1)}</h2>
+                            <div class="id-tag">#${pokemonId}</div>
+                            <div class="types">${typesHtml}</div>
+                            <div class="details-container d-flex justify-content-around flex-wrap">
+                                <div class="hei">
+                                    ${height / 10} m
+                                    <p>Height</p>
+                                </div>
+                                <div class="wei">
+                                    ${weight / 10} kg
+                                    <p>Weight</p>
+                                </div>
+                                <div class="abilities">
+                                    ${abilitiesHtml}
+                                    <p>Abilities</p>
+                                </div>
+                            </div>
+                            <div><strong>Base Stats</strong></div>
+                            ${statsHtml}
+                        </div>`;
+
+                    document.getElementById('pokemon-details').innerHTML = pokemonDetailsHtml;
+                })
+                .catch(err => console.error(err));
+        } else {
+            document.getElementById('pokemon-details').innerHTML = '<p>No Pokémon ID found!</p>';
+        }
+
+        function goBack() {
+            window.history.back();
+        }
     </script>
-    <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"
-    ></script>
-  </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
 </html>
