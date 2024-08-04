@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Weather</h1>
+        <div class="search-box">
+            <input type="text" id="cityInput" placeholder="Enter city name" class="city-input" onkeyup="showSuggestions(this.value)" aria-label="City name input">
+            <div id="suggestions" class="suggestions" role="listbox"></div>
+            <div class="button-group">
+                <button onclick="getWeather()" class="search-button">Get Weather</button>
+                <button onclick="resetResult()" class="reset-button">Reset</button>
+            </div>
+        </div>
+        <div id="error" class="error-message" role="alert"></div>
+        <div id="loading" class="loading-message">Loading...</div>
+        <div id="weatherData" class="weather-info">
+            <p>Temperature: <span id="temp"></span> °C</p>
+            <p>Humidity: <span id="humidity"></span> %</p>
+            <p>Wind Speed: <span id="windSpeed"></span> m/s</p>
+        </div>
+    </div>
+    <script src="./js/weather.js"></script>
+</body>
+</html>
